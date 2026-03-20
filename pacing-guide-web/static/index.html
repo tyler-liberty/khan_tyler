@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pacing guide → KA map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --surface: #fff;
+      --ink: #1a1714;
+      --muted: #5c5854;
+      --accent: #c45c26;
+      --accent-dim: rgba(196, 92, 38, 0.12);
+      --border: #e6e0d8;
+      --code-bg: #f0ebe3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+    .wrap.wide {
+      max-width: min(56rem, calc(100vw - 2rem));
+    }
+    h1 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
+    }
+    h2 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0 0 0.75rem;
+    }
+    .lede {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0 0 2rem;
+      max-width: 38rem;
+    }
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.35rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 0 rgba(0,0,0,.04);
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    input[type="file"], input[type="text"], select, textarea {
+      width: 100%;
+      font: inherit;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    textarea.standards-box {
+      min-height: 14rem;
+      resize: vertical;
+      font-family: ui-monospace, "Cascadia Code", Menlo, monospace;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+    }
+    textarea { min-height: 5rem; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+    button {
+      font: inherit;
+      font-weight: 600;
+      padding: 0.65rem 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+    }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+    button.secondary {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+    .actions { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+    pre.log {
+      font-size: 0.72rem;
+      background: var(--code-bg);
+      border-radius: 8px;
+      padding: 0.85rem;
+      overflow: auto;
+      max-height: 16rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .hint {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0 0 0.5rem;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      margin-right: 0.35rem;
+    }
+    a.dl {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .status { font-size: 0.85rem; color: var(--muted); margin-top: 0.75rem; }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .env-banner {
+      background: #fdf3f0;
+      border: 1px solid #e8c5bc;
+      color: #6b2f24;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 0.875rem;
+      margin-bottom: 1.25rem;
+    }
+    .env-banner code { font-size: 0.8em; background: rgba(0,0,0,.06); padding: 0.1em 0.35em; border-radius: 4px; }
+    details.preview { margin-top: 0.75rem; font-size: 0.85rem; color: var(--muted); }
+    details.preview pre {
+      margin: 0.5rem 0 0;
+      padding: 0.65rem;
+      background: var(--code-bg);
+      border-radius: 8px;
+      max-height: 8rem;
+      overflow: auto;
+      font-size: 0.72rem;
+    }
+    .preview-table-wrap {
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: auto;
+      max-height: min(28rem, 55vh);
+      background: var(--surface);
+    }
+    table.preview-map {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    table.preview-map th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      text-align: left;
+      font-weight: 600;
+      padding: 0.55rem 0.65rem;
+      background: var(--code-bg);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    table.preview-map td {
+      padding: 0.5rem 0.65rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.preview-map td.col-std {
+      font-weight: 600;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    table.preview-map tr:nth-child(even) td { background: rgba(0,0,0,.02); }
+    table.preview-map a {
+      color: #1865F2;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    table.preview-map a:hover { text-decoration: underline; }
+    .extract-summary {
+      margin-top: 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #f7f4ef 0%, var(--surface) 100%);
+      font-size: 0.875rem;
+    }
+    .extract-summary h3 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0 0 0.65rem;
+      color: var(--ink);
+    }
+    .extract-summary dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 8.5rem 1fr;
+      gap: 0.35rem 0.75rem;
+    }
+    .extract-summary dt {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+    .extract-summary dd {
+      margin: 0;
+      line-height: 1.45;
+    }
+    .extract-summary .sub {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      font-weight: 400;
+    }
+    .extract-summary .badge-ov {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .detected-headline {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 0.65rem;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .detected-headline .d-state { color: var(--muted); font-weight: 500; font-size: 0.85rem; }
+    .map-pipeline-panel {
+      margin-top: 0.85rem;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #f0ebe3 0%, #faf8f5 100%);
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
+    .map-pipeline-panel h4 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      color: var(--ink);
+    }
+    .map-pipeline-panel .map-pipeline-list {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+    .map-pipeline-panel .map-pipeline-list li { margin: 0.3rem 0; }
+    .map-pipeline-panel .src-local { color: #1b5e20; font-weight: 600; }
+    .map-pipeline-panel .src-api { color: #b35c00; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="mainWrap">
+    <div id="envBanner" class="env-banner" hidden></div>
+    <h1>Pacing guide → Khan Academy map</h1>
+    <p class="lede">
+      Two steps: extract standards from your file (PDF → text → Claude; DOCX/CSV/XLSX → plain text via ka-parse, then the same Claude step), review them, then run the KA mapping pipeline. Your API key stays on the server.
+    </p>
+
+    <section>
+      <h2><span class="badge">1</span> Extract standards</h2>
+      <label for="file">Pacing guide file</label>
+      <input id="file" type="file" accept=".docx,.csv,.xlsx,.pdf" />
+
+      <div class="row">
+        <div>
+          <label for="state">State override (optional)</label>
+          <input id="state" type="text" placeholder="e.g. FL" autocomplete="off" />
+          <p class="hint" style="margin:0.35rem 0 0">If set, replaces detected <code>state</code> in the JSON (PDF and file parser).</p>
+        </div>
+        <div>
+          <label for="grade">Grade override (optional)</label>
+          <input id="grade" type="text" placeholder='e.g. 7 Accelerated' autocomplete="off" />
+          <p class="hint" style="margin:0.35rem 0 0">If set, replaces detected <code>grade</code>.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" id="btnExtract">Extract standards</button>
+        <span id="busy1" class="status" hidden>Extracting…</span>
+      </div>
+
+      <div id="extractSummary" class="extract-summary" hidden>
+        <p id="detectedHeadline" class="detected-headline"></p>
+        <h3 style="font-size:0.82rem;font-weight:600;margin:0 0 0.5rem;color:var(--muted)">Details</h3>
+        <dl>
+          <dt>State</dt>
+          <dd id="sumState">—</dd>
+          <dt>Curriculum (KA standard set)</dt>
+          <dd id="sumStdSys">—</dd>
+          <dt>Grade</dt>
+          <dd id="sumGrade">—</dd>
+          <dt>Confidence</dt>
+          <dd id="sumConf">—</dd>
+        </dl>
+        <p id="sumStateNote" class="hint" style="margin:0.6rem 0 0" hidden></p>
+        <p id="sumSysNote" class="hint" style="margin:0.35rem 0 0" hidden></p>
+      </div>
+
+      <p id="err1" class="status" style="color:#b42318" hidden></p>
+
+      <label for="standards1" style="margin-top:1rem">Standards (Claude output)</label>
+      <p class="hint">One line per standard. Format: <code>CODE — topic — quarter</code> (topic/quarter optional). You can edit the copy in step 2 before mapping.</p>
+      <textarea id="standards1" class="standards-box" readonly placeholder="Run step 1 to fill this box."></textarea>
+      <details class="preview" id="pdfPreviewWrap" hidden>
+        <summary>Extracted text preview (first portion)</summary>
+        <pre id="pdfPreview"></pre>
+      </details>
+    </section>
+
+    <section id="step2" hidden>
+      <h2><span class="badge">2</span> Map to Khan Academy</h2>
+      <p class="hint">Review or edit the lines below, then submit. Step 1 metadata (<code>state</code>, <code>standards_system</code>, <code>grade</code>, notes) is kept; only the list of standards is rebuilt from this box.</p>
+      <label for="standards2">Standards to map</label>
+      <textarea id="standards2" class="standards-box"></textarea>
+      <div class="actions">
+        <button type="button" id="btnMap">Submit — run KA mapping</button>
+        <span id="busy2" class="status" hidden>Mapping…</span>
+      </div>
+      <div id="mapPipelinePanel" class="map-pipeline-panel" hidden>
+        <h4>What ran underneath</h4>
+        <p id="mapPipelineBusy" class="status" style="margin:0;color:var(--muted)" hidden></p>
+        <div id="mapPipelineSummaryContent" hidden></div>
+      </div>
+      <p id="err2" class="status" style="color:#b42318" hidden></p>
+      <div id="result" hidden>
+        <p class="status" id="summary"></p>
+        <p><a id="download" class="dl" href="#" download>Download spreadsheet</a></p>
+        <div id="previewMeta" class="status" hidden></div>
+        <div id="previewTableWrap" class="preview-table-wrap" hidden>
+          <table class="preview-map" id="previewTable">
+            <thead>
+              <tr>
+                <th scope="col">Standard</th>
+                <th scope="col">KA unit focus</th>
+                <th scope="col">KA exercise</th>
+              </tr>
+            </thead>
+            <tbody id="previewTbody"></tbody>
+          </table>
+        </div>
+        <pre class="log" id="log"></pre>
+      </div>
+    </section>
+
+    <section>
+      <span class="badge">Optional</span>
+      <p style="margin:0.6rem 0 0.75rem;font-size:0.9rem;color:var(--muted)">Quick question for Claude (same OpenRouter key).</p>
+      <label for="amodel">Model</label>
+      <select id="amodel">
+        <option value="anthropic/claude-sonnet-4.6">anthropic/claude-sonnet-4.6</option>
+        <option value="anthropic/claude-3.5-sonnet">anthropic/claude-3.5-sonnet</option>
+      </select>
+      <label for="q" style="margin-top:0.75rem">Message</label>
+      <textarea id="q" placeholder="e.g. Why might MA.7.AR.1.1 be unmatched?"></textarea>
+      <div class="actions">
+        <button type="button" class="secondary" id="ask">Send</button>
+      </div>
+      <pre class="log" id="reply" hidden></pre>
+    </section>
+
+    <footer>
+      <code>/health</code> · <code>POST /api/step1/extract</code> · <code>POST /api/step2/map</code> · <code>GET /api/jobs/…/preview</code> · One-shot: <code>/api/run</code>
+    </footer>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    /** @type {object | null} */
+    let step1PacingBase = null;
+
+    ( async function checkEnv() {
+      try {
+        const r = await fetch("/health");
+        const h = await r.json();
+        if (h.openrouter_configured) return;
+        const loc = h.env_file_present
+          ? `Edit <code>${escapeHtml(h.env_file)}</code> and set <code>OPENROUTER_API_KEY</code>, then restart the server.`
+          : `Create <code>${escapeHtml(h.env_file)}</code> from <code>.env.example</code>, add <code>OPENROUTER_API_KEY</code>, restart the server.`;
+        $("envBanner").hidden = false;
+        $("envBanner").innerHTML =
+          "<strong>OpenRouter is not configured.</strong> PDF extract needs Claude via OpenRouter. " + loc;
+      } catch (_) {}
+    })();
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    }
+
+    function errDetail(data, fallback) {
+      if (!data || data.detail === undefined) return fallback;
+      const d = data.detail;
+      return typeof d === "string" ? d : JSON.stringify(d, null, 2);
+    }
+
+    function buildExtractionSummaryFromPacing(p, stateInput, gradeInput) {
+      if (!p || typeof p !== "object") return null;
+      return {
+        state: p.state !== undefined && p.state !== "" ? p.state : null,
+        state_note: p.state_note,
+        grade: p.grade,
+        detection_confidence: p.detection_confidence,
+        standards_system_detected: p.standards_system,
+        standards_system_for_mapping: p.standards_system,
+        standards_system_note: p.standards_system_note,
+        used_state_override: !!(stateInput && String(stateInput).trim()),
+        used_grade_override: !!(gradeInput && String(gradeInput).trim()),
+      };
+    }
+
+    function renderExtractionSummary(s) {
+      const box = $("extractSummary");
+      const headline = $("detectedHeadline");
+      const nState = $("sumStateNote");
+      const nSys = $("sumSysNote");
+      if (!s) {
+        box.hidden = true;
+        if (headline) headline.textContent = "";
+        return;
+      }
+      box.hidden = false;
+
+      const st = s.state != null && s.state !== "" ? String(s.state) : "Unknown";
+      const curr =
+        s.standards_system_for_mapping ||
+        s.standards_system_detected ||
+        "—";
+      headline.innerHTML =
+        '<span class="d-state">State:</span> ' +
+        escapeHtml(st) +
+        " · " +
+        '<span class="d-state">Curriculum:</span> ' +
+        escapeHtml(String(curr));
+
+      const sumState = $("sumState");
+      sumState.replaceChildren();
+      const stateText = s.state != null && s.state !== "" ? String(s.state) : "Unknown";
+      sumState.appendChild(document.createTextNode(stateText));
+      if (s.used_state_override) {
+        sumState.appendChild(document.createTextNode(" "));
+        const sp = document.createElement("span");
+        sp.className = "badge-ov";
+        sp.textContent = "(form override)";
+        sumState.appendChild(sp);
+      }
+
+      const sumStd = $("sumStdSys");
+      sumStd.replaceChildren();
+      const mapped =
+        s.standards_system_for_mapping || s.standards_system_detected || "—";
+      sumStd.appendChild(document.createTextNode(mapped));
+      if (
+        s.standards_system_detected &&
+        s.standards_system_for_mapping &&
+        String(s.standards_system_detected) !== String(s.standards_system_for_mapping)
+      ) {
+        const sub = document.createElement("span");
+        sub.className = "sub";
+        sub.textContent = `Model: ${s.standards_system_detected}`;
+        sumStd.appendChild(document.createElement("br"));
+        sumStd.appendChild(sub);
+      }
+
+      const sumGrade = $("sumGrade");
+      sumGrade.replaceChildren();
+      const gText = s.grade != null && s.grade !== "" ? String(s.grade) : "—";
+      sumGrade.appendChild(document.createTextNode(gText));
+      if (s.used_grade_override) {
+        sumGrade.appendChild(document.createTextNode(" "));
+        const sp = document.createElement("span");
+        sp.className = "badge-ov";
+        sp.textContent = "(form override)";
+        sumGrade.appendChild(sp);
+      }
+
+      $("sumConf").textContent = s.detection_confidence || "—";
+      if (s.state_note) {
+        nState.hidden = false;
+        nState.textContent = "State note: " + s.state_note;
+      } else {
+        nState.hidden = true;
+      }
+      if (s.standards_system_note) {
+        nSys.hidden = false;
+        nSys.textContent = "Mapping note: " + s.standards_system_note;
+      } else {
+        nSys.hidden = true;
+      }
+    }
+
+    $("btnExtract").onclick = async () => {
+      const f = $("file").files[0];
+      if (!f) {
+        $("err1").hidden = false;
+        $("err1").textContent = "Choose a file first.";
+        return;
+      }
+      $("err1").hidden = true;
+      $("busy1").hidden = false;
+      $("btnExtract").disabled = true;
+      $("pdfPreviewWrap").hidden = true;
+      const fd = new FormData();
+      fd.append("file", f);
+      fd.append("state", $("state").value.trim());
+      fd.append("grade", $("grade").value.trim());
+      try {
+        const res = await fetch("/api/step1/extract", { method: "POST", body: fd });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(errDetail(data, res.statusText));
+        step1PacingBase = data.pacing_json;
+        const sum =
+          data.extraction_summary ||
+          buildExtractionSummaryFromPacing(
+            data.pacing_json,
+            $("state").value,
+            $("grade").value
+          );
+        renderExtractionSummary(sum);
+        $("extractSummary").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        const lines = data.standards_text || "";
+        $("standards1").value = lines;
+        $("standards2").value = lines;
+        $("step2").hidden = false;
+        $("result").hidden = true;
+        $("mapPipelinePanel").hidden = true;
+        $("mapPipelineBusy").hidden = true;
+        $("mapPipelineSummaryContent").hidden = true;
+        $("mapPipelineSummaryContent").replaceChildren();
+        if (data.extracted_text_preview) {
+          $("pdfPreview").textContent = data.extracted_text_preview;
+          $("pdfPreviewWrap").hidden = false;
+        }
+      } catch (e) {
+        $("err1").hidden = false;
+        $("err1").textContent = e.message || String(e);
+        step1PacingBase = null;
+        renderExtractionSummary(null);
+        $("step2").hidden = true;
+      } finally {
+        $("busy1").hidden = true;
+        $("btnExtract").disabled = false;
+      }
+    };
+
+    function renderMapPipelineSummary(p) {
+      const wrap = $("mapPipelineSummaryContent");
+      wrap.replaceChildren();
+      if (!p || typeof p !== "object") {
+        wrap.hidden = true;
+        return;
+      }
+      wrap.hidden = false;
+      const ul = document.createElement("ul");
+      ul.className = "map-pipeline-list";
+      const liCode = document.createElement("li");
+      liCode.appendChild(document.createElement("strong")).textContent = "Standards set (KA id): ";
+      liCode.appendChild(document.createTextNode(p.standards_set_id || "—"));
+      ul.appendChild(liCode);
+
+      const liCsv = document.createElement("li");
+      liCsv.appendChild(document.createElement("strong")).textContent = "KA standards → content table: ";
+      if (p.ka_csv_source === "offline_ccss_file") {
+        const span = document.createElement("span");
+        span.className = "src-local";
+        span.textContent = "Offline CCSS file (KA_CCSS_MATH_CSV). ";
+        liCsv.appendChild(span);
+        liCsv.appendChild(document.createTextNode(p.ka_csv_detail || ""));
+      } else if (p.ka_csv_source === "ka_graphql") {
+        const span = document.createElement("span");
+        span.className = "src-api";
+        span.textContent = "This website called KA GetSetOfStandards (GraphQL). ";
+        liCsv.appendChild(span);
+        liCsv.appendChild(document.createTextNode(p.ka_csv_detail || ""));
+      } else {
+        liCsv.appendChild(
+          document.createTextNode(p.ka_csv_detail || p.ka_csv_source || "—")
+        );
+      }
+      ul.appendChild(liCsv);
+
+      const liMap = document.createElement("li");
+      liMap.appendChild(document.createElement("strong")).textContent = "Mapper: ";
+      liMap.appendChild(
+        document.createTextNode(
+          (p.mapper || "ka-map-pipeline.py") + " → " + (p.output_spreadsheet || "")
+        )
+      );
+      ul.appendChild(liMap);
+      wrap.appendChild(ul);
+    }
+
+    $("btnMap").onclick = async () => {
+      if (!step1PacingBase) {
+        $("err2").hidden = false;
+        $("err2").textContent = "Run step 1 first.";
+        return;
+      }
+      const standards_text = $("standards2").value.trim();
+      if (!standards_text) {
+        $("err2").hidden = false;
+        $("err2").textContent = "Standards box is empty.";
+        return;
+      }
+      $("err2").hidden = true;
+      $("busy2").hidden = false;
+      $("btnMap").disabled = true;
+      $("result").hidden = true;
+      $("mapPipelinePanel").hidden = false;
+      $("mapPipelineBusy").hidden = false;
+      $("mapPipelineBusy").textContent =
+        "Running: ka-init check → load KA standards/content CSV → ka-map-pipeline (build spreadsheet)…";
+      $("mapPipelineSummaryContent").hidden = true;
+      $("mapPipelineSummaryContent").replaceChildren();
+      try {
+        const res = await fetch("/api/step2/map", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            pacing_base: step1PacingBase,
+            standards_text,
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(errDetail(data, res.statusText));
+        $("mapPipelineBusy").hidden = true;
+        if (data.pipeline) {
+          renderMapPipelineSummary(data.pipeline);
+        } else {
+          const w = $("mapPipelineSummaryContent");
+          w.hidden = false;
+          w.textContent =
+            "Pipeline details not in API response (restart the server with the latest app). Full log is below.";
+        }
+        $("result").hidden = false;
+        $("log").textContent = (data.log || []).join("\n");
+        $("download").href = data.download_path;
+        $("download").download = data.filename || "mapping.xlsx";
+        $("summary").textContent = data.filename || "Done";
+        $("previewTableWrap").hidden = true;
+        $("previewMeta").hidden = true;
+        $("previewTbody").innerHTML = "";
+        $("mainWrap").classList.remove("wide");
+        const jid = data.job_id;
+        if (jid) {
+          try {
+            const pr = await fetch(`/api/jobs/${encodeURIComponent(jid)}/preview?limit=2000`);
+            const pv = await pr.json().catch(() => ({}));
+            if (pr.ok && pv.rows && pv.rows.length) {
+              $("mainWrap").classList.add("wide");
+              $("previewMeta").hidden = false;
+              const trunc = pv.truncated ? " (first 2,000 rows)" : "";
+              $("previewMeta").textContent = `${pv.row_count} row(s) from ${pv.source || "spreadsheet"}${trunc}.`;
+              const tb = $("previewTbody");
+              tb.replaceChildren();
+              for (const r of pv.rows) {
+                const tr = document.createElement("tr");
+                const td1 = document.createElement("td");
+                td1.className = "col-std";
+                td1.textContent = r.standard || "";
+                const td2 = document.createElement("td");
+                td2.textContent = r.unit_focus || "";
+                const td3 = document.createElement("td");
+                if (r.exercise_url) {
+                  const a = document.createElement("a");
+                  a.href = r.exercise_url;
+                  a.target = "_blank";
+                  a.rel = "noopener noreferrer";
+                  a.textContent = r.exercise || "";
+                  td3.appendChild(a);
+                } else {
+                  td3.textContent = r.exercise || "";
+                }
+                tr.append(td1, td2, td3);
+                tb.appendChild(tr);
+              }
+              $("previewTableWrap").hidden = false;
+            }
+          } catch (_) {}
+        }
+      } catch (e) {
+        $("err2").hidden = false;
+        $("err2").textContent = e.message || String(e);
+        $("mapPipelinePanel").hidden = true;
+        $("mapPipelineBusy").hidden = true;
+        $("mapPipelineSummaryContent").replaceChildren();
+      } finally {
+        $("busy2").hidden = true;
+        $("btnMap").disabled = false;
+      }
+    };
+
+    $("ask").onclick = async () => {
+      const text = $("q").value.trim();
+      if (!text) return;
+      $("reply").hidden = false;
+      $("reply").textContent = "";
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: text }],
+          model: $("amodel").value,
+          stream: false,
+        }),
+      });
+      if (!res.ok) {
+        $("reply").textContent = await res.text();
+        return;
+      }
+      const j = await res.json();
+      $("reply").textContent = j.content || "";
+    };
+  </script>
+</body>
+</html>

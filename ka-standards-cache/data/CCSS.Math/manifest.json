@@ -1,0 +1,26 @@
+{
+  "set_id": "CCSS.Math",
+  "fetched_at_utc": "2026-03-20T20:24:37.665454+00:00",
+  "graphql_hash": "2804988494",
+  "total_standards": 735,
+  "standards_with_mapped_content": 543,
+  "total_content_rows": 6547,
+  "by_grade": {
+    "1": 73,
+    "2": 479,
+    "3": 442,
+    "4": 515,
+    "5": 440,
+    "6": 683,
+    "7": 499,
+    "8": 505,
+    "HS": 2874,
+    "K": 37
+  },
+  "paths": {
+    "directory": "/Users/tylerliberty/Desktop/Product_Management/ka-standards-cache/data/CCSS.Math",
+    "graphql_json": "graphql_response.json",
+    "full_csv": "CCSS.Math.full.csv",
+    "by_grade": "by_grade"
+  }
+}
